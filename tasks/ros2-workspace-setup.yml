@@ -2,14 +2,14 @@
 # ROS2 worskspace setup task
 
 - name: Create a ROS2 workspace
-  file:
+  ansible.builtin.file:
     dest: "/home/{{ ros2_user.name }}/{{ dev_ws }}/src"
     state: directory
     owner: "{{ ros2_user.name }}"
     group: "{{ ros2_user.group }}"
 
 - name: Build the workspace with colon
-  shell: source /opt/ros/{{ ros2_distribution }}/setup.bash && colcon build
+  ansible.builtin.shell: source /opt/ros/{{ ros2_distribution }}/setup.bash && colcon build
   args:
     chdir: /home/{{ ros2_user.name }}/{{ dev_ws }}
     executable: /bin/bash
@@ -18,6 +18,6 @@
   become_user: "{{ ros2_user.name }}"
 
 - name: Update .bashrc with install/setup.bash
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /home/{{ ros2_user.name }}/.bashrc
     line: source /home/{{ ros2_user.name }}/{{ dev_ws }}/install/setup.bash
