@@ -19,7 +19,7 @@
 # sudo sh -c 'echo "deb [arch=amd64,arm64] http://packages.ros.org/ros2/ubuntu `lsb_release -cs` main" > /etc/apt/sources.list.d/ros2-latest.list'
 - name: Setup ROS2 sources
   ansible.builtin.apt_repository:
-    repo: "deb {{ ros2_repository_url }} {{ ansible_distribution_release }} main"
+    repo: "deb {{ ros2_repository_url }} {{ ansible_facts['distribution_release'] }} main"
     state: present
     filename: ros2-latest
 
